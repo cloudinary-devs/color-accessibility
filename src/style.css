@@ -17,31 +17,19 @@
   color: #FF5050;
 }
 
-/* img {
-    max-width: 50%;
-} */
-
 video {
     max-width: 50%;
 }
 
-.space {
-  margin-top: 20px;
-  margin-bottom: 10px;
+.spacing {
+  margin-bottom: 10px; 
 }
 
-.select_label2{
+.selectLabel{
   color: #0c163b;
   font-weight: normal;
   margin-top: 20px; 
   display: block;
-}
-
-.newline {
-  clear: both; 
-  margin-bottom: 10px;  
-  margin-top: 10px; 
-  margin-left: 50px;
 }
 
 .selection {
@@ -55,7 +43,7 @@ video {
 
 .imageInline {
   margin-right: 30px;
-  display:block;
+  display: inline;
 }
 
 .alignCenter {

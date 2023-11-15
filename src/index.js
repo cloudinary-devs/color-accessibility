@@ -1,204 +1,111 @@
 import './style.css';
 import getSimulateColorBlindImage from './simulateColorBlind';
 
+const publicIds = ['docs/redflower', 'docs/palette.png', 'docs/piechart.png'];
+const imageUrls = ['', '', ''];
 
-function updateImages()
-{
-    let colorType = document.getElementById('colortype').value;
-    let assistType = document.getElementById('assisttype').value;
-    document.getElementById('displayedImage1').src = getSimulateColorBlindImage(publicId1, colorType, assistType).toURL();
-    document.getElementById('displayedImage2').src = getSimulateColorBlindImage(publicId2, colorType, assistType).toURL();
-    document.getElementById('displayedImage3').src = getSimulateColorBlindImage(publicId3, colorType, assistType).toURL();
+function updateImages() {
+    const colorType = document.getElementById('colortype').value;
+    const assistType = document.getElementById('assisttype').value;
+
+    for (let i = 1; i <= 3; i++) {
+        const imgElement = document.getElementById(`displayedImage${i}`);
+        imgElement.src = getSimulateColorBlindImage(publicIds[i - 1], colorType, assistType).toURL();
+    }
+}
+
+function createDropdown(id, values) {
+    const dropdown = document.createElement('select');
+    dropdown.classList.add('select-css');
+    dropdown.setAttribute('id', id);
+    dropdown.setAttribute('name', id);
+
+    values.forEach((value) => {
+        const option = document.createElement('option');
+        option.setAttribute('value', value.toLowerCase().replace(/\s/g, '_'));
+        option.setAttribute('id', value.toLowerCase());
+        option.setAttribute('selected', value.toLowerCase() === 'none' ? 'true' : 'false');
+        option.innerHTML = value;
+        dropdown.appendChild(option);
+    });
+
+    return dropdown;
+}
+
+function createSelectionArea(labelText, id, values) {
+    const surround = document.createElement('div');
+
+    const label = document.createElement('label');
+    label.innerHTML = `${labelText}:`;
+    label.setAttribute('for', id);
+    label.classList.add('selectLabel');
+    surround.appendChild(label);
+
+    const spacing = document.createElement('div');
+    spacing.classList.add('spacing');
+    surround.appendChild(spacing);
+
+    const selectionArea = document.createElement('div');
+    selectionArea.classList.add('selection');
+    surround.appendChild(selectionArea);
+
+    const dropdown = createDropdown(id, values);
+    selectionArea.append(dropdown);
+
+    document.body.appendChild(surround);
+
+    return surround; // Return the created div for setting the initial value later
 }
 
 // Set the public IDs
-let publicId1 = 'docs/redflower';
-let publicId2 = 'docs/palette.png';
-let publicId3 = 'docs/piechart.png';
+const [publicId1, publicId2, publicId3] = publicIds;
 
-let myImageUrl1 = '';
-let myImageUrl2 = '';
-let myImageUrl3 = '';
+// Create color type dropdown
+const colorTypeDropdown = createSelectionArea('Select a type of color blindness', 'colortype', [
+    'None',
+    'Deuteranopia',
+    'Protanopia',
+    'Tritanopia',
+    'Tritanomaly',
+    'Deuteranomaly',
+    'Cone Monochromacy',
+    'Rod Monochromacy',
+]);
 
+// Create color blindness assistance dropdown
+const assistTypeDropdown = createSelectionArea('Select a way to assist color blindness', 'assisttype', ['None', 'Stripes', 'Xray']);
 
-// Create the elements for selecting the type of color blindness
-const surround = document.createElement('div');
+// Set 'None' as the initial selected option for both select boxes
+colorTypeDropdown.querySelector('select').value = 'none';
+assistTypeDropdown.querySelector('select').value = 'none';
 
-const label = document.createElement('label');
-label.innerHTML='Select a type of color blindness:'
-label.setAttribute('for', 'colortype');
-label.classList.add('select_label2');
-surround.appendChild(label);
+// Add spacing between the second select box and the images
+const spacingBetweenSelectAndImages = document.createElement('div');
+spacingBetweenSelectAndImages.classList.add('spacing'); 
+document.body.appendChild(spacingBetweenSelectAndImages);
 
-const spacing4 = document.createElement('div');
-spacing4.classList.add('newline');
-surround.appendChild(spacing4);
-
-const selectionArea = document.createElement('div');
-selectionArea.classList.add('selection');
-surround.appendChild(selectionArea);
-
-const dropdown = document.createElement('select');
-dropdown.classList.add('select-css');
-dropdown.setAttribute('id','colortype');
-dropdown.setAttribute('name','colortype');
-
-const option = document.createElement('option');
-option.setAttribute('value', 'none');
-option.setAttribute('id', 'none');
-option.setAttribute('selected', 'true');
-option.innerHTML = 'None';
-dropdown.appendChild(option);
-
-const option1 = document.createElement('option');
-option1.setAttribute('value', 'deuteranopia');
-option1.setAttribute('id', 'deuteranopia');
-option1.innerHTML = 'deuteranopia';
-dropdown.appendChild(option1);
-
-const option2 = document.createElement('option');
-option2.setAttribute('value', 'protanopia');
-option2.setAttribute('id', 'protanopia');
-option2.innerHTML = 'protanopia';
-dropdown.appendChild(option2);
-
-const option3 = document.createElement('option');
-option3.setAttribute('value', 'tritanopia');
-option3.setAttribute('id', 'tritanopia');
-option3.innerHTML = 'tritanopia';
-dropdown.appendChild(option3);
-
-const option4 = document.createElement('option');
-option4.setAttribute('value', 'tritanomaly');
-option4.setAttribute('id', 'tritanomaly');
-option4.innerHTML = 'tritanomaly';
-dropdown.appendChild(option4);
-
-const option5 = document.createElement('option');
-option5.setAttribute('value', 'deuteranomaly');
-option5.setAttribute('id', 'deuteranomaly');
-option5.innerHTML = 'deuteranomaly';
-dropdown.appendChild(option5);
-
-const option6 = document.createElement('option');
-option6.setAttribute('value', 'cone_monochromacy');
-option6.setAttribute('id', 'cone_monochromacy');
-option6.innerHTML = 'cone_monochromacy';
-dropdown.appendChild(option6);
-
-const option7 = document.createElement('option');
-option7.setAttribute('value', 'rod_monochromacy');
-option7.setAttribute('id', 'rod_monochromacy');
-option7.innerHTML = 'rod_monochromacy';
-dropdown.appendChild(option7);
-
-selectionArea.append(dropdown);
-
-document.body.appendChild(surround);
-
-// Create the elements for selecting the type of color blindness assistance
-
-const surround2 = document.createElement('div');
-
-const label2 = document.createElement('label');
-label2.innerHTML='Select a way to assist color blindness:'
-label2.setAttribute('for', 'assisttype');
-label2.classList.add('select_label2');
-surround2.appendChild(label2);
-
-const spacing5 = document.createElement('div');
-spacing5.classList.add('newline');
-surround2.appendChild(spacing5);
-
-
-const selectionArea2 = document.createElement('div');
-selectionArea2.classList.add('selection');
-surround2.appendChild(selectionArea2);
-
-document.body.appendChild(surround2);
-
-const dropdown2 = document.createElement('select');
-dropdown2.classList.add('select-css');
-dropdown2.setAttribute('id','assisttype');
-dropdown2.setAttribute('name','assisttype');
-
-const assistOption = document.createElement('option');
-assistOption.setAttribute('value', 'none');
-assistOption.setAttribute('id', 'none');
-assistOption.setAttribute('selected', 'true');
-assistOption.innerHTML = 'None';
-dropdown2.appendChild(assistOption);
-
-const assistOption1 = document.createElement('option');
-assistOption1.setAttribute('value', 'stripes');
-assistOption1.setAttribute('id', 'stripes');
-assistOption1.innerHTML = 'stripes';
-dropdown2.appendChild(assistOption1);
-
-const assistOption2 = document.createElement('option');
-assistOption2.setAttribute('value', 'xray');
-assistOption2.setAttribute('id', 'xray');
-assistOption2.innerHTML = 'xray';
-dropdown2.appendChild(assistOption2);
-
-selectionArea2.append(dropdown2);
-
-
-
-// Create the elements for the images
+// Create image elements
 const element = document.createElement('div');
-const spacing = document.createElement('div');
-const imgElement1 = document.createElement('img');
-const imgElement2 = document.createElement('img');
-const imgElement3 = document.createElement('img');
-
-// Set the styles
-element.classList.add('text','App');
-spacing.classList.add('space');
-
-// Add the description
-//element.innerHTML = description;
-
-element.appendChild(spacing);
+element.classList.add('text', 'App');
 
 const divCenter = document.createElement('div');
 divCenter.classList.add('alignCenter');
 element.appendChild(divCenter);
 
-const span1 = document.createElement('span');
-span1.classList.add('spanInline');
-divCenter.appendChild(span1);
+const spanContainer = document.createElement('span');
 
-const span2 = document.createElement('span');
-span2.classList.add('spanInline');
-divCenter.appendChild(span2);
+for (let i = 1; i <= 3; i++) {
+    const imgElement = document.createElement('img');
+    imgElement.src = imageUrls[i - 1];
+    imgElement.setAttribute('id', `displayedImage${i}`);
+    imgElement.classList.add('imageInline');
+    spanContainer.appendChild(imgElement);
+}
 
-const span3 = document.createElement('span');
-span3.classList.add('spanInline');
-divCenter.appendChild(span3);
-
-
-// Set the src attribute of the img element
-imgElement1.src = myImageUrl1;
-imgElement1.setAttribute('id', 'displayedImage1');
-imgElement1.classList.add('imageInline');
-
-imgElement2.src = myImageUrl2;
-imgElement2.setAttribute('id', 'displayedImage2');
-imgElement2.classList.add('imageInline');
-
-imgElement3.src = myImageUrl3;
-imgElement3.setAttribute('id', 'displayedImage3');
-imgElement3.classList.add('imageInline');
-
-// Add the images  to the div
-span1.appendChild(imgElement1);
-span2.appendChild(imgElement2);
-span3.appendChild(imgElement3);
-
+divCenter.appendChild(spanContainer);
 document.body.appendChild(element);
 
-dropdown.addEventListener('change', updateImages);
-dropdown2.addEventListener('change', updateImages);
+document.getElementById('colortype').addEventListener('change', updateImages);
+document.getElementById('assisttype').addEventListener('change', updateImages);
 
 updateImages();
