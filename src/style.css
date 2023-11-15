@@ -17,9 +17,9 @@
   color: #FF5050;
 }
 
-img {
+/* img {
     max-width: 50%;
-}
+} */
 
 video {
     max-width: 50%;
@@ -42,7 +42,21 @@ video {
 }
 
 .selection {
-  width:170px;
+  width:220px;
+}
+
+.spanInline {
+  display:inline-block;
+  vertical-align:top;
+}
+
+.imageInline {
+  margin-right: 30px;
+  display:block;
+}
+
+.alignCenter {
+  text-align:center;
 }
 
 .select-css {

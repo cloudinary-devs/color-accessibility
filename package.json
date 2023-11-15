@@ -1,7 +1,7 @@
 {
-  "name": "cld-js-sdk-docs-examples",
+  "name": "color-accessibility",
   "version": "1.0.0",
-  "description": "Examples from the Cloudinary docs of using js-url-gen for transforming images and videos.",
+  "description": "Simulate and assist color blindness.",
   "main": "index.js",
   "private": true,
   "scripts": {
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cloudinary-devs/cld-js-sdk-docs-examples.git"
+    "url": "git+https://github.com/cloudinary-devs/color-accessibility.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cloudinary-devs/cld-js-sdk-docs-examples/issues"
+    "url": "https://github.com/cloudinary-devs/color-accessibility/issues"
   },
-  "homepage": "https://github.com/cloudinary-devs/cld-js-sdk-docs-examples#readme",
+  "homepage": "https://github.com/cloudinary-devs/color-accessibility#readme",
   "devDependencies": {
   },
   "dependencies": {

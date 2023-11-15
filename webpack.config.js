@@ -9,7 +9,7 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'cld-js-sdk-docs-examples',
+      title: 'color-accessibility',
       excludeChunks: [ 'video' ]
     }),
     new HtmlWebpackPlugin({
