@@ -12,10 +12,10 @@ export default function getSimulateColorBlindImage(publicId, colorType, assistTy
     }
   });
 
-  // Instantiate a CloudinaryImage object for the image with the public ID, 'docs/models'.
+  // Instantiate a CloudinaryImage object for the image.
   const myImage = cld.image(publicId); 
 
-  // Resize to 250 x 250 pixels using the 'fill' crop mode.
+  // Resize to a height of 250 pixels using the 'scale' crop mode.
   myImage.resize(scale().height(250));
 
   if (assistType !== "none") {
